@@ -1,0 +1,15 @@
+# Start MySQL and Redis as Docker services
+# docker-compose -f docker-compose-dev.yml up
+
+mysql:
+  image: mysql:5.7
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_DATABASE=germ-sql
+
+redis:
+  image: redis:3.0
+  ports:
+    - "6379:6379"
