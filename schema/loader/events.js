@@ -1,6 +1,6 @@
 const RedisDataLoader = require('./loader');
 
-const eventLoader = (models) => {
+const eventsLoader = (models) => {
     const options = {
         include: [{
             model: models.User,
@@ -11,17 +11,16 @@ const eventLoader = (models) => {
         }]
     };
     
-    const eventById = (id) => models.Event.findById(
-        parseInt(id, 10), 
+    const allEvents = () => models.Event.findAll(
         options
     );
 
     return RedisDataLoader(
-        'event',
+        'events',
         (ids) => Promise.all(
-            ids.map(eventById)
+            ids.map(allEvents)
         )
     );
 }
 
-module.exports = eventLoader;
+module.exports = eventsLoader;

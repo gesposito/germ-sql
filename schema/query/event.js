@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { GraphQLString } = graphql;
+const { GraphQLList, GraphQLString } = graphql;
 
 const { event } = require('../type');
 
@@ -14,5 +14,15 @@ const eventQuery = {
     }
 }
 
-module.exports = eventQuery;
+const eventsQuery = {
+    type: new GraphQLList(event),
+    resolve: (root, args, { loaders }) => {
+        return loaders.events.load('all');
+    }
+}
+
+module.exports = {
+    event: eventQuery,
+    events: eventsQuery,
+};
 
