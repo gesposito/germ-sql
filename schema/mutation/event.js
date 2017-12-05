@@ -10,8 +10,9 @@ const eventCreate = {
     args: {
         input: { type: eventInput }
     },
-    resolve: (root, { input }, context) => {
-        return root.db.Event.create(input);
+    resolve: (root, { input }, { loaders }) => {
+        return root.db.Event.create(input)
+            .then(loaders.events.clear('all'));
     }
 }
 
